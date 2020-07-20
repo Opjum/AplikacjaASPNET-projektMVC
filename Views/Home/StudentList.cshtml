@@ -1,0 +1,63 @@
+﻿@model AplikacjaASPNET.Views.ViewModels.StudentClassCodeViewModel
+
+<h1> Lista Studentów  </h1>
+
+<br />
+<br />
+<div class="fa-header">
+    <h3> Create new  students</h3>
+    <a asp-action="Create" class="btn btn-primary">Create </a>
+
+</div>
+
+
+
+<div>
+
+    <div class="fa-search">
+        <form asp-controller="Home" asp-action="StudentList" method="get">
+            <select asp-for="studentClassCodes" asp-items="Model.classCodes">
+                <option value="">All</option>
+            </select>
+            <input type="text" name="searchString" />
+            <button class="btn btn-primary" id="searchBtn">Search</button>
+
+        </form>
+    </div>
+    <table class="table-fill">
+        <tr>
+
+            <th class="text-center"> Id</th>
+            <th class="text-center">ClassCode</th>
+            <th class="text-center">Imie</th>
+            <th class="text-center">Nazwisko</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Actions</th>
+        </tr>
+        @{
+            foreach (var item in Model.Students)
+            {
+                <tr>
+
+                    <td class="text-left">@item.Id</td>
+                    <td class="text-left">@item.ClassCode</td>
+                    <td class="text-left">@item.FirstName</td>
+                    <td class="text-left">@item.LastName</td>
+                    <td class="text-left">@item.Email</td>
+                    <div class="card-footer text-center">
+                        <td class="text-left">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">View</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                            <a href="./Delete/@item.Id" class="btn btn-danger">Delete</a>
+
+                        </td>
+                    </div>
+
+                </tr>
+
+
+            }
+
+        }
+    </table>
+</div>
