@@ -1,0 +1,63 @@
+﻿@model AplikacjaASPNET.Views.ViewModels.CompetitionListViewModel
+
+<h1> Lista Konkursow </h1>
+
+<br />
+<br />
+<div class="fa-header">
+    <h3> Competition list</h3>
+    <a asp-action="CompetitionCreate" class="btn btn-primary">Create </a>
+
+</div>
+
+
+
+<div>
+
+    <div class="fa-search">
+        <form asp-controller="Competition" asp-action="CompetitionList" method="get">
+                <select asp-for="competitionCategory" asp-items="@Html.GetEnumSelectList<AplikacjaASPNET.Models.Konkurs.EnumCategory>()"></select>
+                <option value="">All</option>
+            
+            <input type="text" name="searchString" />
+            <button class="btn btn-primary" id="searchBtn">Search</button>
+
+        </form>
+    </div>
+    <table class="table-fill">
+        <tr>
+
+            <th class="text-center"> Id</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Organiser</th>
+            <th class="text-center">Adres</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">Actions</th>
+        </tr>
+        @{
+            foreach (var item in @Model.competitions)
+            {
+                <tr>
+
+                    <td class="text-left">@item.Id</td>
+                    <td class="text-left">@item.Name</td>
+                    <td class="text-left">@item.Organiser</td>
+                    <td class="text-left">@item.Adres</td>
+                    <td class="text-left">@item.Category</td>
+                    <div class="card-footer text-center">
+                        <td class="text-left">
+                            <a asp-action="CompetitionDetails" asp-route-id="@item.Id" class="btn btn-primary">View</a>
+                            <a asp-action="CompetitionEdit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                            <a href="./Delete/@item.Id" class="btn btn-danger">Delete</a>
+
+                        </td>
+                    </div>
+
+                </tr>
+
+
+            }
+
+        }
+    </table>
+</div>

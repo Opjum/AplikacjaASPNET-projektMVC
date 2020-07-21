@@ -37,6 +37,7 @@ namespace AplikacjaASPNET
             services.AddMvc();
             services.AddRazorPages();
             services.AddScoped<IStudentRepository, SQLStudentRepository>();
+            services.AddScoped<ICompetitionRepository, SQLKonkursRepository>();
 
             var databaseSection = Configuration.GetSection("Database");
             var databaseSettings = databaseSection.Get<DatabaseSettings>();

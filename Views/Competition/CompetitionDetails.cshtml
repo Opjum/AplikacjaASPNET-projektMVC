@@ -1,0 +1,45 @@
+﻿@model AplikacjaASPNET.Models.Competition
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Organiser)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Organiser)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Adres)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Adres)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+    </dl>
+</div>
+<div class="card-footer text-center">
+    <td class="text-left">
+        <a asp-action="CompetitionList" class="btn btn-primary">Back to List</a>
+        <a asp-action="CompetitionEdit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+        <a asp-action="CompetitionDelete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+
+    </td>
+</div>

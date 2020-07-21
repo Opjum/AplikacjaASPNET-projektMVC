@@ -4,14 +4,16 @@ using AplikacjaASPNET.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplikacjaASPNET.Migrations.AppDbContextSQLServerMigrations
 {
     [DbContext(typeof(AppDbContextSQLServer))]
-    partial class AppDbContextSQLServerModelSnapshot : ModelSnapshot
+    [Migration("20200721091618_nowyContrller")]
+    partial class nowyContrller
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

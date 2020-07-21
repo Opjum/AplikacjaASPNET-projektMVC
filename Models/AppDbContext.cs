@@ -26,6 +26,7 @@ namespace AplikacjaASPNET.Models
         }
 
         public DbSet<Student> StudentDB { get; set; }
+        public DbSet<Competition> CompetitionDB { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
