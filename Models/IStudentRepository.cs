@@ -14,6 +14,7 @@ namespace AplikacjaASPNET.Models
             Student Delete(int id);
             Student Create(Student nowyStudent);
             IQueryable<string> GetAllClasses();
+
         }
     
 }

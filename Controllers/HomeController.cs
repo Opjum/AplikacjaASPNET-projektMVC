@@ -16,11 +16,14 @@ namespace AplikacjaASPNET.Controllers
     public class HomeController : Controller
     {
         private readonly IStudentRepository _StudentRepository;
+        private readonly AppDbContext _context;
 
 
-        public HomeController(IStudentRepository StudentRepository)
+        public HomeController(IStudentRepository StudentRepository, AppDbContext context)
         {
             _StudentRepository = StudentRepository;
+            _context = context;
+
         }
         [Route("")]
         [Route("Home")]
@@ -31,28 +34,43 @@ namespace AplikacjaASPNET.Controllers
         }
         public IActionResult StudentList(string searchString, string studentClassCodes)
         {
+            var query = _context.StudentDB.AsQueryable();
+
+            if (!string.IsNullOrEmpty(studentClassCodes))
+                query = query.Where(a => a.ClassCode == studentClassCodes);
+            if (!string.IsNullOrEmpty(searchString))
+                query = query.Where(a => a.FirstName.Contains(searchString) || a.Email.Contains(searchString));
+       
+
+
+
+
 
             IQueryable<string> classCodesQuery = _StudentRepository.GetAllClasses();
-            IEnumerable<Student> students;
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                students = _StudentRepository.GetAllStudent().Where(s => s.FirstName.ToLower().Contains(searchString.ToLower()) ||
-                               s.LastName.ToLower().Contains(searchString.ToLower()));
+            //IEnumerable<Student> students;
+            //if (!string.IsNullOrEmpty(studentClassCodes))
+            //{
+            //    students = _StudentRepository.GetAllStudent().Where(s => s.ClassCode.ToLower().Contains(studentClassCodes.ToLower()));
+            //}
+            //if (!string.IsNullOrEmpty(searchString))
+            //{
+            //    students = _StudentRepository.GetAllStudent().Where(s => s.FirstName.ToLower().Contains(searchString.ToLower()) ||
+            //                   s.LastName.ToLower().Contains(searchString.ToLower()));
 
-            }
-            /*if (!string.IsNullOrEmpty(studentClassCodes))
-            {
-                students = _StudentRepository.GetAllStudent().Where(s => s.ClassCode.ToLower().Contains(studentClassCodes.ToLower()));
-            }*/
-            else
-            {
-                students = _StudentRepository.GetAllStudent();
-            }
+            //}           
+            //else
+            //{
+            //    students = _StudentRepository.GetAllStudent();
+            //}
+            
+
             var StudentClassCodeVM = new StudentClassCodeViewModel()
             {
                 classCodes = new SelectList(classCodesQuery.Distinct()),
-                Students = students.ToList()
+                Students = query.ToList()
             };
+
+
             return View(StudentClassCodeVM);
 
         }
