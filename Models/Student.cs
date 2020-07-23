@@ -19,8 +19,10 @@ namespace AplikacjaASPNET.Models
         public string ClassCode { get; set; }
         [Required]
         public string Email { get; set; }
+
         
-        
+        public virtual ICollection<CompetitionStudents> CompetitionStudents { get; set; }
+
 
 
 

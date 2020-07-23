@@ -27,6 +27,7 @@ namespace AplikacjaASPNET.Models
 
         public DbSet<Student> StudentDB { get; set; }
         public DbSet<Competition> CompetitionDB { get; set; }
+        public DbSet<CompetitionStudents> CompetitionStudentsDB { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,17 +36,23 @@ namespace AplikacjaASPNET.Models
 
     }
 
-    public class AppDbContextSQLServer : AppDbContext
+    public class dbSQLServer : AppDbContext
     {
 
-        public AppDbContextSQLServer(DbContextOptions<AppDbContextSQLServer> options) : base(options)
+        public dbSQLServer(DbContextOptions<dbSQLServer> options) : base(options)
         {
+            
 
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+
+
+            modelBuilder.Entity<CompetitionStudents>()
+                            .HasKey(sc => new { sc.StudentId, sc.CompetitionId });
+
+
         }
 
     }
@@ -55,7 +62,7 @@ namespace AplikacjaASPNET.Models
         /// <summary>
         /// Options will be of this specific type and we pass this to the protected not typed base class constructor
         /// </summary>
-        /// <param name="options"></param>
+        
         public AppDbContextPostGresSQL(DbContextOptions<AppDbContextPostGresSQL> options) : base(options)
         {
 

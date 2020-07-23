@@ -2,7 +2,7 @@
 
 namespace AplikacjaASPNET.Migrations.AppDbContextSQLServerMigrations
 {
-    public partial class nowypc : Migration
+    public partial class newnw : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

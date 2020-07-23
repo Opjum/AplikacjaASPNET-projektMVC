@@ -14,9 +14,13 @@ namespace AplikacjaASPNET.Models
         public string Adres { get; set; }
         public string Organiser { get; set; }
 
-        public List<Student> UczestnikList { get; set; }
-        
+        public virtual ICollection<CompetitionStudents> CompetitionStudents { get; set; }
 
+
+        public Competition()
+        {
+
+        }
 
     }
 }

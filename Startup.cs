@@ -46,7 +46,7 @@ namespace AplikacjaASPNET
 
             if (databaseSettings.DatabaseType == "SQLServer")
             {
-                services.AddDbContext<AppDbContext, AppDbContextSQLServer>(ConfigureSQLServer);
+                services.AddDbContext<AppDbContext, dbSQLServer>(ConfigureSQLServer);
             }
             else
             {
