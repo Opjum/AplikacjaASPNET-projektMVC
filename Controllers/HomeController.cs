@@ -32,36 +32,39 @@ namespace AplikacjaASPNET.Controllers
         {
             return View();
         }
-        public IActionResult StudentList(string searchString, string studentClassCodes)
+        public IActionResult StudentList(string searchString, string studentClassCodes, string sorting)
         {
+            
             var query = _context.StudentDB.AsQueryable();
+            
 
             if (!string.IsNullOrEmpty(studentClassCodes))
                 query = query.Where(a => a.ClassCode == studentClassCodes);
             if (!string.IsNullOrEmpty(searchString))
                 query = query.Where(a => a.FirstName.Contains(searchString) || a.Email.Contains(searchString));
-       
 
+            if (!string.IsNullOrEmpty(sorting))
+                switch (sorting)
+                {
+                    case "LastName":
+                        query = query.OrderBy(q => q.LastName).ThenBy(q => q.FirstName);
+                        break;
+                    case "FirstName":
+                        query = query.OrderBy(q => q.FirstName).ThenBy(q => q.LastName);
+                        break;
+                    case "ClassCode":
+                        query = query.OrderBy(q => q.ClassCode).ThenBy(q => q.FirstName);
+                        break;
+                    default:
+                        query = query.OrderBy(q => q.Id);
+                        break;
+                }
 
-
+            //
 
 
             IQueryable<string> classCodesQuery = _StudentRepository.GetAllClasses();
-            //IEnumerable<Student> students;
-            //if (!string.IsNullOrEmpty(studentClassCodes))
-            //{
-            //    students = _StudentRepository.GetAllStudent().Where(s => s.ClassCode.ToLower().Contains(studentClassCodes.ToLower()));
-            //}
-            //if (!string.IsNullOrEmpty(searchString))
-            //{
-            //    students = _StudentRepository.GetAllStudent().Where(s => s.FirstName.ToLower().Contains(searchString.ToLower()) ||
-            //                   s.LastName.ToLower().Contains(searchString.ToLower()));
-
-            //}           
-            //else
-            //{
-            //    students = _StudentRepository.GetAllStudent();
-            //}
+            
             
 
             var StudentClassCodeVM = new StudentClassCodeViewModel()
