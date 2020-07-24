@@ -23,20 +23,24 @@
             <button class="btn btn-primary" id="searchBtn">Search</button>
 
         </form>
-    </div>
-    <table id="dtBasicExample" class="table table-striped table-bordered table-sm">
+    </div>  <!--<table id="dtBasicExample" class="table table-bordered table-sortable">-->
+    <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
+           role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+        <caption>
+            <code>table.table-sortable</code>
+        </caption>
         <tr>
-            
-         <th class="text-center"> <a asp-action="StudentList" asp-route-sorting="Id">Id</a></th> 
-            
-          <th class="text-center"><a asp-action="StudentList" asp-route-sorting="ClassCode">ClassCode</a></th>
-          
-         <th class="text-center"><a asp-action="StudentList" asp-route-sorting="FirstName">Imie </a></th>
-                   
-                    <th class="text-center">Nazwisko</th>
-                    <th class="text-center">Email</th>
-                    <th class="text-center">Actions</th>
-</tr>
+
+            <th class="th-sm"> <a asp-action="StudentList" asp-route-sorting="@ViewData["idSortdir"]">Id</a></th>
+
+            <th class="th-sm"><a asp-action="StudentList" asp-route-sorting="@ViewData["ccodeSortdir"]">ClassCode</a></th>
+
+            <th cclass="th-sm"><a asp-action="StudentList" asp-route-sorting="@ViewData["fnSortdir"]">Imie </a></th>
+
+            <th class="text-center">Nazwisko</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Actions</th>
+        </tr>
         @{
             foreach (var item in Model.Students)
             {

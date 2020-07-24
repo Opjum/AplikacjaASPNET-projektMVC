@@ -34,7 +34,10 @@ namespace AplikacjaASPNET.Controllers
         }
         public IActionResult StudentList(string searchString, string studentClassCodes, string sorting)
         {
-            
+            ViewData["fnSortdir"] = sorting == "FirstName" ? "FirstName_desc" : "FirstName";
+            ViewData["idSortdir"] = sorting == "Id" ? "Id_desc" : "Id";
+            ViewData["ccodeSortdir"] = sorting == "ClassCode" ? "ClassCode_desc" : "ClassCode";
+
             var query = _context.StudentDB.AsQueryable();
             
 
@@ -46,14 +49,23 @@ namespace AplikacjaASPNET.Controllers
             if (!string.IsNullOrEmpty(sorting))
                 switch (sorting)
                 {
-                    case "LastName":
-                        query = query.OrderBy(q => q.LastName).ThenBy(q => q.FirstName);
+                    case "Id":
+                        query = query.OrderBy(q => q.Id);
+                        break;
+                    case "Id_desc":
+                        query = query.OrderByDescending(q => q.Id);
                         break;
                     case "FirstName":
                         query = query.OrderBy(q => q.FirstName).ThenBy(q => q.LastName);
                         break;
+                    case "FirstName_desc":
+                        query = query.OrderByDescending(q => q.FirstName).ThenBy(q => q.LastName);
+                        break;
                     case "ClassCode":
                         query = query.OrderBy(q => q.ClassCode).ThenBy(q => q.FirstName);
+                        break;
+                    case "ClassCode_desc":
+                        query = query.OrderByDescending(q => q.ClassCode).ThenBy(q => q.FirstName);
                         break;
                     default:
                         query = query.OrderBy(q => q.Id);
